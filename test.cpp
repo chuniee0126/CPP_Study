@@ -17,18 +17,14 @@
  */
 #include <iostream>
 #include <string>
-#include <iostream>
 
 int main(int argc, char* argv[]){
-  int nAge;
-  std::cout << "나이를 입력하세요." << std::endl;
-  std::cin >> nAge;
+  int a = 10;
+  int b(a);
+  // this auto structure is defined in C++11 so if you want to use this code with g++, you need involve this comment "-std=c++11"
+  auto c(b);
 
-  std::string strName;
-  std::cout << "이름을 입력하세요." << std::endl;
-  std::cin >> strName;
-
-  std::cout << "당신의 이름은 " << strName << "이며, 당신은 " << nAge << "살이다." << std::endl;
+  std::cout << a + b + c << std::endl;
 
   return 0;
 }
