@@ -18,16 +18,19 @@
 #include <iostream>
 using namespace std;
 
-void TestFunc(int &rParam) {
-    rParam = 100;
+void SWAP(int &a, int &b) {
+    int temp = a;
+    a = b;
+    b = temp;
 }
 
 
 int main(int argc, char* argv[]){
-    int nData = 0;
+    int aData = 10;
+    int bData = 20;
 
-    TestFunc(nData);
-    cout << nData << endl;
+    SWAP(aData, bData);
+    cout << aData << " is aData and "<< bData << " is bData" << "\n" << endl;
 
     return 0;
 }
