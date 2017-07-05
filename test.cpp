@@ -20,19 +20,19 @@ using namespace std;
 
 int main(int argc, char* argv[]){
 
-    // 객체를 배열 형태로 동적 생성한다.
-    int *arr = new int[5];
+    int nData = 10;
 
-    for(int i = 0; i < 5; ++i){
-        arr[i] = (i + 1) * 10;
-    }
+    // nData 변수에 대한 참조자(별명) 선언
+    int &ref = nData;
 
-    for(int i = 0; i < 5; ++i){
-        cout << arr[i] << endl;
-    }
+    // 참조자의 값을 변경하면 원본도 변경된다.
+    ref = 20;
+    cout << nData << endl;
 
-    // 배열 형태로 생성한 대상은 반드시 배열 형태를 통해 삭제한다!
-    delete[] arr;
+    // 포인터를 쓰는 것과 비슷하다.
+    int *pnData = &nData;
+    *pnData = 30;
+    cout << nData << endl;
 
     return 0;
 }
