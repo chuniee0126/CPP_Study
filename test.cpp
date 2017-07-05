@@ -17,14 +17,18 @@
  */
 #include <iostream>
 #include <string>
+#include <iostream>
 
 int main(int argc, char* argv[]){
-  std::string strData = "Test string";
-  std::cout << "Sample string" << std::endl;
-  std::cout << strData << std::endl;
+  int nAge;
+  std::cout << "나이를 입력하세요." << std::endl;
+  std::cin >> nAge;
 
-  strData = "New string";
-  std::cout << strData << std::endl;
+  std::string strName;
+  std::cout << "이름을 입력하세요." << std::endl;
+  std::cin >> strName;
+
+  std::cout << "당신의 이름은 " << strName << "이며, 당신은 " << nAge << "살이다." << std::endl;
 
   return 0;
 }
