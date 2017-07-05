@@ -16,11 +16,15 @@
  * =====================================================================================
  */
 #include <iostream>
+#include <string>
 
 int main(int argc, char* argv[]){
-  std::cout << 10 << '\n' << std::endl;
-  std::cout << 10U << '\n' << std::endl;
-  std::cout << "10.5F" << '\n' << std::endl;
-  std::cout << 10.5 << '\n' << std::endl;
-  std::cout << 3 + 4 << '\n' << std::endl;
+  std::string strData = "Test string";
+  std::cout << "Sample string" << std::endl;
+  std::cout << strData << std::endl;
+
+  strData = "New string";
+  std::cout << strData << std::endl;
+
+  return 0;
 }
