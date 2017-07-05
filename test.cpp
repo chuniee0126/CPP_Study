@@ -16,15 +16,17 @@
  * =====================================================================================
  */
 #include <iostream>
-#include <string>
 
 int main(int argc, char* argv[]){
-  int a = 10;
-  int b(a);
-  // this auto structure is defined in C++11 so if you want to use this code with g++, you need involve this comment "-std=c++11"
-  auto c(b);
+    int *pData = new int;
+    int *pNewData = new int(10);
 
-  std::cout << a + b + c << std::endl;
+    *pData = 5;
+    std::cout << *pData << std::endl;
+    std::cout << *pNewData << std::endl;
 
-  return 0;
+    delete pData;
+    delete pNewData;
+
+    return 0;
 }
