@@ -19,7 +19,9 @@
 using namespace std;
 
 
-int TestFunc(int nParam = 10)
+int TestFunc(int = 10);
+
+int TestFunc(int nParam)
 {
     return nParam;
 }
