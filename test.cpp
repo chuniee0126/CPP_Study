@@ -21,17 +21,13 @@ using namespace std;
 //가급적이면 함수 다중정의 보다는 '함수 템플릿'을 사용하기를 권한다.
 //사용자에게 있어 편의성을 높이며, 코드의 효율성 또한 높인다.
 template <typename T>
-T TestFunc(T a){
-    cout << "매개변수 a: " << a << endl;
-
-    return a;
+T  Add(T a, T b){
+    return a + b;
 }
 
 int main(int argc, char const *argv[]) {
-    cout << "int\t" << TestFunc(3) << endl;
-    cout << "double\t" << TestFunc(3.3) << endl;
-    cout << "char\t" << TestFunc('A') << endl;
-    cout << "char*\t" << TestFunc("TestString") << endl;
+    cout << "Add(int, int): " << Add(3, 4) << endl;
+    cout << "Add(double, double): " << Add(3.3, 4.4) << endl;
 
     return 0;
 }
