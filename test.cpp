@@ -19,22 +19,23 @@
 
 using namespace std;
 
-namespace Test {
-    int g_nData = 100;
+void TestFunc(void){ cout << "::TestFunc()" << endl; }
 
-    namespace DEV{
-        int g_nData = 200;
-        namespace WIN {
-            int g_nData = 300;
-        } /*WIN */
-    } /*DEV*/
+namespace Test {
+    //Test 네임스페이스 소속
+    void TestFunc(void){ cout << "Test::TestFunc()" << endl; }
 } /*Test*/
 
-int main(int argc, char const *argv[]) {
+namespace MYDATA{
+    //MYDATA 네임스페이스 소속
+    void TestFunc(void){ cout << "MYDATA::TestFunc()" << endl; }
+} /*MYDATA*/
 
-    cout << Test::g_nData << endl;
-    cout << Test::DEV::g_nData << endl;
-    cout << Test::DEV::WIN::g_nData << endl;
+int main(int argc, char const *argv[]) {
+    TestFunc(); // 묵시적 전역
+    ::TestFunc();// 명시적 전역
+    Test::TestFunc();
+    MYDATA::TestFunc();
 
     return 0;
 }
