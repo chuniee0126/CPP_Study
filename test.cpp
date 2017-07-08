@@ -18,20 +18,20 @@
 #include <iostream>
 using namespace std;
 
-void TestFunc(int a)
-{
-    cout << "TestFunc(int)" << endl;
+//가급적이면 함수 다중정의 보다는 '함수 템플릿'을 사용하기를 권한다.
+//사용자에게 있어 편의성을 높이며, 코드의 효율성 또한 높인다.
+template <typename T>
+T TestFunc(T a){
+    cout << "매개변수 a: " << a << endl;
+
+    return a;
 }
 
-void TestFunc(int a, int b = 10)
-{
-    cout << "TestFunc(int, int)" << endl;
-}
-
-int main(int argc, char* argv[]){
-    //TestFunc(5);
-    //위 라인의 주석처리를 삭제하면 오류가 발생한다. 중요한건 위 다중정의를 사용한 함수 자체의 정의에서는 오류가 발생하지 않는다는 것이다.
-    cout << "compile complete!" << endl;
+int main(int argc, char const *argv[]) {
+    cout << "int\t" << TestFunc(3) << endl;
+    cout << "double\t" << TestFunc(3.3) << endl;
+    cout << "char\t" << TestFunc('A') << endl;
+    cout << "char*\t" << TestFunc("TestString") << endl;
 
     return 0;
 }
