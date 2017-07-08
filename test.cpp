@@ -18,29 +18,20 @@
 #include <iostream>
 using namespace std;
 
-int Add(int a, int b, int c)
+void TestFunc(int a)
 {
-    cout << "Add(int, int, int): ";
-    return a + b + c;
+    cout << "TestFunc(int)" << endl;
 }
 
-int Add(int a, int b)
+void TestFunc(int a, int b = 10)
 {
-    cout << "Add(int, int): ";
-    return a + b;
-}
-
-double Add(double a, double b)
-{
-    cout << "Add(double, double): ";
-    return a + b;
+    cout << "TestFunc(int, int)" << endl;
 }
 
 int main(int argc, char* argv[]){
-
-    cout << Add(3, 4) << endl;
-    cout << Add(3, 4, 5) << endl;
-    cout << Add(3.3, 4.4) << endl;
+    //TestFunc(5);
+    //위 라인의 주석처리를 삭제하면 오류가 발생한다. 중요한건 위 다중정의를 사용한 함수 자체의 정의에서는 오류가 발생하지 않는다는 것이다.
+    cout << "compile complete!" << endl;
 
     return 0;
 }
