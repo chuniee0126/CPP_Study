@@ -17,6 +17,8 @@
  */
 #include <iostream>
 
+using namespace std;
+
 namespace Test {
     int g_nData = 100;
 
@@ -26,9 +28,12 @@ namespace Test {
     }
 } /*Test */
 
+using namespace Test;
+
 int main(int argc, char const *argv[]) {
-    Test::TestFunc();
-    std::cout << Test::g_nData << std::endl;
+
+    TestFunc();
+    cout << g_nData << endl;
 
     return 0;
 }
