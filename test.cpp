@@ -22,18 +22,19 @@ using namespace std;
 namespace Test {
     int g_nData = 100;
 
-    void TestFunc(void)
-    {
-        std::cout << "Test::Testfunc()" << '\n';
-    }
-} /*Test */
-
-using namespace Test;
+    namespace DEV{
+        int g_nData = 200;
+        namespace WIN {
+            int g_nData = 300;
+        } /*WIN */
+    } /*DEV*/
+} /*Test*/
 
 int main(int argc, char const *argv[]) {
 
-    TestFunc();
-    cout << g_nData << endl;
+    cout << Test::g_nData << endl;
+    cout << Test::DEV::g_nData << endl;
+    cout << Test::DEV::WIN::g_nData << endl;
 
     return 0;
 }
