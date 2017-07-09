@@ -25,6 +25,7 @@ public:
     CTest()
     {
         //인스턴스가 생성되면 멤버 데이터를 자동으로 초기화
+        std::cout << "CTest() : 생성자 함수" << '\n';
         m_nData = 10;
     }
 
@@ -35,15 +36,19 @@ public:
     void PrintData(void)
     {
         // 멤버 데이터에 접근하고 값을 출력한다.
-        std::cout << m_nData << '\n';
+        std::cout << m_nData << std::endl;
     }
 
 };
 
 int main(int argc, char const *argv[])
 {
+    std::cout << "main() 함수 시작" << std::endl;
+
     CTest t;
     t.PrintData();
+
+    std::cout << "main() : 함수 끝" << std::endl;
 
     return 0;
 }
