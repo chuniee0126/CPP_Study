@@ -21,12 +21,11 @@
 // 제작자 코드
 class CTest {
 public:
-    CTest(void);
+    // 이렇게 하면 별도로 정의를 기술하지 않고도 선언과 정의가 분리
+    // 이런 형태의 문법은 템플릿을 이용해 프로그래밍할 때 필요해진다.
+    CTest(void) = default;
     int m_nData = 5;
 };
-
-// 클래스 외부에서 디폴트 생성자 정의
-CTest::CTest(void) {}
 
 int main(int argc, char const *argv[]) {
     CTest a;
