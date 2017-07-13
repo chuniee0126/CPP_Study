@@ -36,8 +36,8 @@ int main(int argc, char const *argv[]) {
     // new 연산자를 이용해 동적으로 객체를 생성한다.
     CTest *pData = new CTest[3];
 
-    // delete 연산자를 이용해 객체를 삭제한다.
-    delete[] pData;
+    // 배열을 배열로 삭제하지 않으면 메모리 릭 버스를 만든다.
+    delete pData;
     std::cout << "End" << std::endl;
 
     return 0;
