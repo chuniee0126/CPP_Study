@@ -8,9 +8,9 @@
  *        Version:  1.0
  *        Created:  2017년 07월 04일 21시 35분 18초
  *       Revision:  none
- *       Compiler:  gcc
+ *       Compiler:  g++
  *
- *         Author:  YOUR NAME (),
+ *         Author:  Chun Myong Park,
  *   Organization:
  *
  * =====================================================================================
@@ -19,38 +19,32 @@
 #include <iostream>
 
 class CTest {
-
 public:
-// CTest 클래스의 '생성자 함수' 선언 및 정의
-CTest()
-{
-	//인스턴스가 생성되면 멤버 데이터를 자동으로 초기화
-	std::cout << "CTest() : 생성자 함수" << '\n';
-	m_nData = 10;
-}
+    // CTest 클래스의 '생성자 함수' 선언 및 정의
+    CTest() {}
 
+    // C++11부터 선언과 동시에 멤버 변수를 초기화할 수 있다!
+    int m_nData2 = 20;
+    int m_nData1 = 10;
 
-int m_nData;
-
-// 멤버 함수 선언(선언을 clss안에서, 정의를 밖에서 진행)
-void PrintData(void);
-
+    // 멤버 함수 선언(선언을 clss안에서, 정의를 밖에서 진행)
+    void PrintData(void);
 };
 
 // 멤버 함수를 정의한다. 이 때 이 멤버함수의 소속을 명확히 구분해둔다.
-void CTest::PrintData(void){
-	// 멤버 데이터에 접근하고 값을 출력한다.
-	std::cout << m_nData << std::endl;
+void CTest::PrintData(void) {
+    // 멤버 데이터에 접근하고 값을 출력한다.
+    std::cout << m_nData1 << std::endl;
+    std::cout << m_nData2 << std::endl;
 }
 
-int main(int argc, char const *argv[])
-{
-	std::cout << "main() 함수 시작" << std::endl;
+int main(int argc, char const *argv[]) {
+    std::cout << "main() 함수 시작" << std::endl;
 
-	CTest t;
-	t.PrintData();
+    CTest t;
+    t.PrintData();
 
-	std::cout << "main() : 함수 끝" << std::endl;
+    std::cout << "main() : 함수 끝" << std::endl;
 
-	return 0;
+    return 0;
 }
