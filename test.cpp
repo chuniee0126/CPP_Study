@@ -20,17 +20,29 @@
 
 // 제작자 코드
 class CTest {
+    int m_nData;
+
 public:
-    // 이렇게 하면 별도로 정의를 기술하지 않고도 선언과 정의가 분리
-    // 이런 형태의 문법은 템플릿을 이용해 프로그래밍할 때 필요해진다.
-    CTest(void) = delete;
-    int m_nData = 5;
+    CTest(int nParam) : m_nData(nParam) {};
+    void PrintData() {
+        // m_nData의 값을 출력한다.
+        std::cout << m_nData << std::endl;
+
+        // CTest 클래스의 멤버인  m_nData 멤버 값을 출력한다.
+        std::cout << CTest::m_nData << std::endl;
+
+        // 메서드를 호출한 인스턴스의 m_nData 멤버 값을 출력한다.
+        std::cout << this->m_nData << std::endl;
+
+        // 메서드를 호출한 인스턴스의 CTest 클래스 멤버 m_nData 를 출력한다.
+        std::cout << this->CTest::m_nData << std::endl;
+    }
 };
-
 int main(int argc, char const *argv[]) {
-    CTest a;
+    CTest a(5), b(10);
 
-    std::cout << a.m_nData << std::endl;
+    a.PrintData();
+    b.PrintData();
 
     return 0;
 }
