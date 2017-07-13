@@ -23,7 +23,7 @@ class CTest {
 public:
     // 이렇게 하면 별도로 정의를 기술하지 않고도 선언과 정의가 분리
     // 이런 형태의 문법은 템플릿을 이용해 프로그래밍할 때 필요해진다.
-    CTest(void) = default;
+    CTest(void) = delete;
     int m_nData = 5;
 };
 
