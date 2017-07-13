@@ -20,25 +20,23 @@
 
 // 제작자 코드
 class CTest {
-    int& m_nData;
+    int m_nData;
 
 public:
-    CTest(int& rParam) : m_nData(rParam) {}
-
+    CTest(int nParam) : m_nData(nParam) {};
+    CTest(int x, int y) : m_nData(x + y) {};
+    // 디폴트 생성자는 없다.
     int GetData() {
         return m_nData;
     }
 };
 
 int main(int argc, char const *argv[]) {
-    int   a(10);
-    CTest t(a);
+    CTest a(10);
+    CTest b(3, 4);
 
-    std::cout << t.GetData() << std::endl;
-
-    // 참조 원본인 a의 값이 수정되었다.
-    a = 20;
-    std::cout << t.GetData() << std::endl;
+    std::cout << a.GetData() << std::endl;
+    std::cout << b.GetData() << std::endl;
 
     return 0;
 }
