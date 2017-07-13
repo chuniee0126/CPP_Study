@@ -20,25 +20,25 @@
 
 // 제작자 코드
 class CTest {
-public:
-    CTest() {
-        std::cout << "CTest::CTest()" << std::endl;
-    }
+    int& m_nData;
 
-    ~CTest() {
-        std::cout << "CTest::~CTest()" << std::endl;
+public:
+    CTest(int& rParam) : m_nData(rParam) {}
+
+    int GetData() {
+        return m_nData;
     }
 };
 
 int main(int argc, char const *argv[]) {
-    std::cout << "Begin" << std::endl;
+    int   a(10);
+    CTest t(a);
 
-    // new 연산자를 이용해 동적으로 객체를 생성한다.
-    CTest *pData = new CTest[3];
+    std::cout << t.GetData() << std::endl;
 
-    // 배열을 배열로 삭제하지 않으면 메모리 릭 버스를 만든다.
-    delete pData;
-    std::cout << "End" << std::endl;
+    // 참조 원본인 a의 값이 수정되었다.
+    a = 20;
+    std::cout << t.GetData() << std::endl;
 
     return 0;
 }
