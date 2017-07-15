@@ -26,14 +26,14 @@ public:
     ~CTest() {}
 
     // 상수형 메서드로 선언 및 정의했다.
-    // 상수화된 메서드는 멤버 변수에 읽기 접근은 가능하지만 쓰기는 허용되지 않는다.
     int GetData() const {
-        // 멤버 변수의 값을 읽을 수는 있지만 쓸 수는 없다.
+        m_nData = 20;
         return m_nData;
     }
 
 private:
-    int m_nData = 0;
+    // mutable로 선언한 멤버 변수의 값은 상수형 메서드에서도 쓰기가 허용됩니다.
+    mutable int m_nData = 0;
 };
 
 
