@@ -18,29 +18,21 @@
 #include <cstdio>
 #include <iostream>
 
-// 제작자 코드
-class CTest {
-public:
-    CTest(int nParam) : m_nData(nParam) {}
+void TestFunc(const int& nParam) {
+    // 상수형 참조였으나 일반 참조로 형변환했다.
+    int& nNewParam = const_cast<int&>(nParam);
 
-    ~CTest() {}
-
-    // 상수형 메서드로 선언 및 정의했다.
-    int GetData() const {
-        m_nData = 20;
-        return m_nData;
-    }
-
-private:
-    // mutable로 선언한 멤버 변수의 값은 상수형 메서드에서도 쓰기가 허용됩니다.
-    mutable int m_nData = 0;
-};
-
+    // 따라서 l-value가 될 수 있다.
+    nNewParam = 20;
+}
 
 int main(int argc, char const *argv[]) {
-    CTest a(10);
+    int nData = 10;
 
-    std::cout << a.GetData() << std::endl;
+    // 상수형 참조로 전달하지만 값이 변경된다.
+    TestFunc(nData);
+
+    std::cout << nData << std::endl;
 
     return 0;
 }
