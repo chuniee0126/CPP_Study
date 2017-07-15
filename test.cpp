@@ -20,29 +20,27 @@
 
 // 제작자 코드
 class CTest {
-    int m_nData;
-
 public:
-    CTest(int nParam) : m_nData(nParam) {};
-    void PrintData() {
-        // m_nData의 값을 출력한다.
-        std::cout << m_nData << std::endl;
+    CTest(int nParam) : m_nData(nParam) {}
 
-        // CTest 클래스의 멤버인  m_nData 멤버 값을 출력한다.
-        std::cout << CTest::m_nData << std::endl;
+    ~CTest() {}
 
-        // 메서드를 호출한 인스턴스의 m_nData 멤버 값을 출력한다.
-        std::cout << this->m_nData << std::endl;
-
-        // 메서드를 호출한 인스턴스의 CTest 클래스 멤버 m_nData 를 출력한다.
-        std::cout << this->CTest::m_nData << std::endl;
+    // 상수형 메서드로 선언 및 정의했다.
+    // 상수화된 메서드는 멤버 변수에 읽기 접근은 가능하지만 쓰기는 허용되지 않는다.
+    int GetData() const {
+        // 멤버 변수의 값을 읽을 수는 있지만 쓸 수는 없다.
+        return m_nData;
     }
-};
-int main(int argc, char const *argv[]) {
-    CTest a(5), b(10);
 
-    a.PrintData();
-    b.PrintData();
+private:
+    int m_nData = 0;
+};
+
+
+int main(int argc, char const *argv[]) {
+    CTest a(10);
+
+    std::cout << a.GetData() << std::endl;
 
     return 0;
 }
