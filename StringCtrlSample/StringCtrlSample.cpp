@@ -18,13 +18,15 @@
 #include <iostream>
 #include "MyString.h"
 
+void TestFunc(const CMyString& param) {
+    std::cout << param.GetString() << std::endl;
+}
+
 int main(int argc, char const *argv[]) {
     CMyString strData;
 
     strData.SetString("Hello");
-    strData.SetString("World");
-    std::cout << strData.GetString() << std::endl;
-    strData.Release();
+    TestFunc(strData);
 
     return 0;
 }
