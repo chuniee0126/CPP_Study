@@ -34,12 +34,10 @@ public:
     }
 
     // 매개변수가 double 자료형인 경우로 다중 정의했다.
-    void SetData(double dParam) {
-        m_nData = 0;
-    }
+    void SetData(double dParam) = delete;
 };
 
-int main(int argc, char const *argv[]) {
+int      main(int argc, char const *argv[]) {
     CMyData a;
 
     // CMyData::SetData(int) 메서드가 호출된다.
