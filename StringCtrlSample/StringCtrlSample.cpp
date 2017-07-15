@@ -22,7 +22,9 @@ int main(int argc, char const *argv[]) {
     CMyString strData;
 
     strData.SetString("Hello");
+    strData.SetString("World");
     std::cout << strData.GetString() << std::endl;
+    strData.Release();
 
     return 0;
 }
