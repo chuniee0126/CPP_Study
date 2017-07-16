@@ -20,6 +20,10 @@
 
 class CTestData {
 public:
+    CTestData() {
+        std::cout << "CTestData():" << '\n';
+    }
+
     CTestData(int nParam, char *pszName) : m_nData(nParam), m_pszName(pszName) {
         std::cout << "CTestData(int): " << m_pszName << '\n';
     }
@@ -65,14 +69,10 @@ CTestData TestFunc(int nParam) {
 }
 
 int main(int argc, char const *argv[]) {
-    CTestData b(5, (char *)"b");
-
     std::cout << "******Before******" << '\n';
-
-    // 함수가 반환되면서 임시 객체가 생성됐다가 대입 연산 후 즉시 소멸한다.
-    b = TestFunc(10);
+    // 이름 없는 임시 객체는 main()함수가 반환된 후 소멸한다.
+    CTestData && rData = TestFunc(10);
     std::cout << "******After******" << '\n';
-    std::cout << b.GetData() << '\n';
 
     return 0;
 }
