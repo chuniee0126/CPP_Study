@@ -18,19 +18,17 @@
 #include <iostream>
 #include "MyString.h"
 
+void TestFunc(const CMyString& strParam) {
+    std::cout << strParam << '\n';
+}
+
 int main(int argc, char const *argv[]) {
-    CMyString strData, strTest;
+    CMyString strData;
 
     strData.SetString("Hello");
-    strTest.SetString("World");
 
-    // 복사 생성
-    CMyString strNewData(strData);
-    std::cout << strNewData.GetString() << '\n';
-
-    // 단순 대입 연산자 호출
-    strNewData = strTest;
-    std::cout << strNewData.GetString() << std::endl;
+    ::TestFunc(strData);
+    ::TestFunc(CMyString("World"));
 
     return 0;
 }

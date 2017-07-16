@@ -32,9 +32,12 @@ private:
 public:
     CMyString();
     CMyString(const CMyString& rhs);
+    explicit CMyString(const char *pszParam);
     ~CMyString();
 
     CMyString & operator=(const CMyString& rhs);
+    operator char *(void) const;
+
     int         SetString(const char *pszParam);
     const char* GetString() const;
     void        Release();

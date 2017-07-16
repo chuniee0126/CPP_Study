@@ -23,6 +23,10 @@ CMyString::CMyString(const CMyString& rhs) : m_pszData(NULL), m_nLength(0) {
     this->SetString(rhs.GetString());
 }
 
+CMyString::CMyString(const char *pszParam) {
+    SetString(pszParam);
+}
+
 CMyString::~CMyString() {
     // 동적 할당 되었던 메모리 할당 취소
     Release();
@@ -31,6 +35,10 @@ CMyString::~CMyString() {
 CMyString& CMyString::operator=(const CMyString& rhs) {
     if (this != &rhs) this->SetString(rhs.GetString());
     return *this;
+}
+
+CMyString::operator char *(void) const {
+    return m_pszData;
 }
 
 int CMyString::SetString(const char *pszParam) {
