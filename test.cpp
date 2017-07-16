@@ -27,7 +27,9 @@ public:
         std::cout << "CTest(int)" << std::endl;
     }
 
-    CTest(const CTest& rhs) = delete;
+    CTest(const CTest& rhs) : m_nData(rhs.m_nData) {
+        std::cout << "CTest(const CTest &)" << std::endl;
+    }
 
     // 읽기 전용인 상수형 메서드
     int GetData() const {
@@ -40,7 +42,7 @@ public:
     }
 };
 
-void TestFunc(CTest param) {
+void TestFunc(CTest& param) {
     std::cout << "TestFunc()" << std::endl;
 
     // 피호출자 함수에서 매개변수 인스턴스의 값을 변경한다.
