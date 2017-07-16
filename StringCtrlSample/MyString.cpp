@@ -19,9 +19,8 @@
 
 CMyString::CMyString() : m_pszData(NULL), m_nLength(0) {}
 
-CMyString::CMyString(const CMyString& rhs) {
-    m_pszData = new char[rhs.m_nLength + 1];
-    strcpy(m_pszData, rhs.m_pszData);
+CMyString::CMyString(const CMyString& rhs) : m_pszData(NULL), m_nLength(0) {
+    this->SetString(rhs.GetString());
 }
 
 CMyString::~CMyString() {
@@ -30,9 +29,7 @@ CMyString::~CMyString() {
 }
 
 CMyString& CMyString::operator=(const CMyString& rhs) {
-    Release();
-    m_pszData = new char[rhs.m_nLength + 1];
-    strcpy(m_pszData, rhs.m_pszData);
+    if (this != &rhs) this->SetString(rhs.GetString());
     return *this;
 }
 
