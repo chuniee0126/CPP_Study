@@ -23,17 +23,13 @@ private:
     int m_nData = 0;
 
 public:
-    // 매개변수가 하나뿐인 생성자는 형변환이 가능하다.
     explicit CTestData(int nParam) : m_nData(nParam) {
         std::cout << "CTestData(int)" << std::endl;
     }
 
-    CTestData(const CTestData& rhs) : m_nData(rhs.GetData()) {
-        std::cout << "CTestData(const CTestData &)" << '\n';
-    }
-
-    ~CTestData() {
-        std::cout << "~CTestData()" << '\n';
+    // CTestData 클래스는 int 자료형으로 변환될 수 있다.
+    operator int(void) {
+        return m_nData;
     }
 
     int GetData() const {
@@ -45,18 +41,15 @@ public:
     }
 };
 
-// 사용자 코드
-// 매개변수가 클래스 형식이며 변환 생성이 가능하다.
-void TestFunc(const CTestData& param) {
-    std::cout << "TestFunc():" << param.GetData() << std::endl;
-}
-
 int main(int argc, char const *argv[]) {
-    std::cout << "*******Begin*******" << '\n';
+    CTestData a(10);
 
-    TestFunc(5);
+    std::cout << a.GetData() << '\n';
 
-    std::cout << "*******End*******" << '\n';
+    // CTestData 형식에서 int 자료형으로 변환될 수 있다.
+    std::cout << a << '\n';
+    std::cout << int(a) << '\n';
+    std::cout << static_cast<int>(a) << '\n';
 
     return 0;
 }
