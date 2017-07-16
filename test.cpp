@@ -29,6 +29,16 @@ public:
         *m_pnData = nParam;
     }
 
+    CTest(const CTest& rhs) {
+        std::cout << "CTest(const CTest &)" << std::endl;
+
+        // 새로운 메모리를 할당한다.
+        m_pnData = new int;
+
+        // 메모리 주소를 할당하는 것이 아니라, 그 안의 값을 복사하는 '깊은 복사'를 진행한다.
+        *m_pnData = *rhs.m_pnData;
+    }
+
     ~CTest() {
         // 문법적인 오류는 없지만 컴파일 해보게 되면 문제가 있음을 알 수 있다.
         Release();
