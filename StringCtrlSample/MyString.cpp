@@ -16,14 +16,24 @@
  * =====================================================================================
  */
 #include "MyString.h"
-#include <iostream>
-#include <cstring>
 
 CMyString::CMyString() : m_pszData(NULL), m_nLength(0) {}
+
+CMyString::CMyString(const CMyString& rhs) {
+    m_pszData = new char[rhs.m_nLength + 1];
+    strcpy(m_pszData, rhs.m_pszData);
+}
 
 CMyString::~CMyString() {
     // 동적 할당 되었던 메모리 할당 취소
     Release();
+}
+
+CMyString& CMyString::operator=(const CMyString& rhs) {
+    Release();
+    m_pszData = new char[rhs.m_nLength + 1];
+    strcpy(m_pszData, rhs.m_pszData);
+    return *this;
 }
 
 int CMyString::SetString(const char *pszParam) {

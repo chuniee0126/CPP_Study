@@ -16,7 +16,10 @@
  * =====================================================================================
  */
 #ifndef __MyString__
-#define __MyString__
+#define __MyString__    1
+
+#include <iostream>
+#include <cstring>
 
 class CMyString {
 private:
@@ -28,8 +31,10 @@ private:
 
 public:
     CMyString();
+    CMyString(const CMyString& rhs);
     ~CMyString();
 
+    CMyString & operator=(const CMyString& rhs);
     int         SetString(const char *pszParam);
     const char* GetString() const;
     void        Release();
