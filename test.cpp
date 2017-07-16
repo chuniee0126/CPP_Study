@@ -28,7 +28,7 @@ public:
     }
 
     // CTestData 클래스는 int 자료형으로 변환될 수 있다.
-    operator int(void) {
+    explicit operator int(void) {
         return m_nData;
     }
 
