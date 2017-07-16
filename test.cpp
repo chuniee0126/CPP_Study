@@ -18,43 +18,39 @@
 #include <cstdio>
 #include <iostream>
 
-class CTest {
+class CMyData {
 private:
-    int m_nData;
-
-    // 정적 멤버 변수 선언 (정의는 아니다!)
-    static int m_nCount;
+    int m_nData = 0;
 
 public:
-    CTest(int nParam) : m_nData(nParam) {
-        m_nCount++;
+    CMyData() {
+        std::cout << "CMyData()" << std::endl;
     }
 
-    int  GetData() {
-        return m_nData;
-    };
-    void ResetCount() {
-        m_nCount = 0;
-    };
+    // 복사 생성자 선언 및 정의
+    CMyData(const CMyData& rhs) {  // : m_nData(rhs.m_nData)
+        this->m_nData = rhs.m_nData;
+        std::cout << "CMyData(const CMyData &)" << std::endl;
+    }
 
-    // 정적 메서드 선언 및 정의
-    static int GetCount() {
-        return m_nCount;
+    int GetData(void) const {
+        return m_nData;
+    }
+
+    void SetData(int nParam) {
+        m_nData = nParam;
     }
 };
 
-// CTest 클래스의 정적 멤버 변수 정의
-int CTest::m_nCount = 0;
-
 int main(int argc, char const *argv[]) {
-    CTest a(5), b(10);
+    CMyData a;
 
-    // 정적 멤버에 접근
-    std::cout << a.GetCount() << std::endl;
-    b.ResetCount();
+    // 디폴트 생성자가 호출되는 경우
+    a.SetData(10);
 
-    // 정적 멤버에 접금, 인스턴스 없이도 접근 가능!
-    std::cout << CTest::GetCount() << '\n';
+    // 복사 생성자가 호출되는 경우
+    CMyData b(a);
+    std::cout << b.GetData() << std::endl;
 
     return 0;
 }
