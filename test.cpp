@@ -19,17 +19,26 @@
 #include <iostream>
 
 class CTestData {
-private:
-    int m_nData = 0;
-
 public:
-    explicit CTestData(int nParam) : m_nData(nParam) {
-        std::cout << "CTestData(int)" << std::endl;
+    CTestData(int nParam, char *pszName) : m_nData(nParam), m_pszName(pszName) {
+        std::cout << "CTestData(int): " << m_pszName << '\n';
     }
 
-    // CTestData 클래스는 int 자료형으로 변환될 수 있다.
-    explicit operator int(void) {
-        return m_nData;
+    ~CTestData() {
+        std::cout << "~CTestData(): " << m_pszName << '\n';
+    }
+
+    CTestData(const CTestData& rhs) : m_nData(rhs.m_nData), m_pszName(rhs.m_pszName) {
+        std::cout << "CTestData(const CTestData &): " << m_pszName << '\n';
+    }
+
+    CTestData& operator=(const CTestData& rhs) {
+        std::cout << "operator=" << '\n';
+
+        // 값은 변경하지만 이름은 그대로 둔다.
+        m_nData = rhs.m_nData;
+
+        return *this;
     }
 
     int GetData() const {
@@ -39,17 +48,31 @@ public:
     void SetData(int nParam) {
         m_nData = nParam;
     }
+
+private:
+    int m_nData = 0;
+    // 변수 이름을 저장하기 위한 함수
+    char *m_pszName = nullptr;
 };
 
+// CTestData 객체를 반환하는 함수다.
+CTestData TestFunc(int nParam) {
+    // CTestData 클래스 인스턴스인 a는 지역 변수다.
+    // 따라서 함수가 반환되면 소멸한다.
+    CTestData a(nParam, (char *)"a");
+
+    return a;
+}
+
 int main(int argc, char const *argv[]) {
-    CTestData a(10);
+    CTestData b(5, (char *)"b");
 
-    std::cout << a.GetData() << '\n';
+    std::cout << "******Before******" << '\n';
 
-    // CTestData 형식에서 int 자료형으로 변환될 수 있다.
-    std::cout << a << '\n';
-    std::cout << int(a) << '\n';
-    std::cout << static_cast<int>(a) << '\n';
+    // 함수가 반환되면서 임시 객체가 생성됐다가 대입 연산 후 즉시 소멸한다.
+    b = TestFunc(10);
+    std::cout << "******After******" << '\n';
+    std::cout << b.GetData() << '\n';
 
     return 0;
 }
