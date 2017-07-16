@@ -27,9 +27,7 @@ public:
         std::cout << "CTest(int)" << std::endl;
     }
 
-    CTest(const CTest& rhs) : m_nData(rhs.m_nData) {
-        std::cout << "CTest(const CTest &)" << std::endl;
-    }
+    CTest(const CTest& rhs) = delete;
 
     // 읽기 전용인 상수형 메서드
     int GetData() const {
