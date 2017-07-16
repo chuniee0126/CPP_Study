@@ -24,28 +24,29 @@ public:
         std::cout << "CTestData():" << '\n';
     }
 
-    CTestData(int nParam, char *pszName) : m_nData(nParam), m_pszName(pszName) {
-        std::cout << "CTestData(int): " << m_pszName << '\n';
-    }
-
     ~CTestData() {
-        std::cout << "~CTestData(): " << m_pszName << '\n';
+        std::cout << "~CTestData(): " << '\n';
     }
 
-    CTestData(const CTestData& rhs) : m_nData(rhs.m_nData), m_pszName(rhs.m_pszName) {
-        std::cout << "CTestData(const CTestData &): " << m_pszName << '\n';
+    CTestData(const CTestData& rhs) : m_nData(rhs.m_nData) {
+        std::cout << "CTestData(const CTestData &): " << '\n';
     }
 
-    CTestData& operator=(const CTestData& rhs) {
-        std::cout << "operator=" << '\n';
-
-        // 값은 변경하지만 이름은 그대로 둔다.
-        m_nData = rhs.m_nData;
-
-        return *this;
+    // 이동 생성자
+    CTestData(CTestData&& rhs) : m_nData(rhs.m_nData) {
+        std::cout << "CTestData(CTestData &&): " << '\n';
     }
 
-    int GetData() const {
+    // CTestData& operator=(const CTestData& rhs);
+    // {
+    // std::cout << "operator =" << '\n';
+    //
+    // m_nData = rhs.m_nData;
+    //
+    // return *this;
+    // }
+
+    int GetData() {
         return m_nData;
     }
 
@@ -55,24 +56,23 @@ public:
 
 private:
     int m_nData = 0;
-    // 변수 이름을 저장하기 위한 함수
-    char *m_pszName = nullptr;
 };
 
-// CTestData 객체를 반환하는 함수다.
+
 CTestData TestFunc(int nParam) {
-    // CTestData 클래스 인스턴스인 a는 지역 변수다.
-    // 따라서 함수가 반환되면 소멸한다.
-    CTestData a(nParam, (char *)"a");
+    std::cout << "**TestFunc(): Begin***" << '\n';
+    CTestData a;
+    a.SetData(nParam);
+    std::cout << "**TestFunc(): End***" << '\n';
 
     return a;
 }
 
 int main(int argc, char const *argv[]) {
     std::cout << "******Before******" << '\n';
-    // 이름 없는 임시 객체는 main()함수가 반환된 후 소멸한다.
-    CTestData && rData = TestFunc(10);
+    CTestData b = std::move(TestFunc(20));
     std::cout << "******After******" << '\n';
+    // CTestData c(b);
 
     return 0;
 }
