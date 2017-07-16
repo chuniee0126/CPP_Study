@@ -20,45 +20,38 @@
 
 class CTest {
 private:
-    int m_nData = 0;
+    // 포인터 멤버 데이터
+    int *m_pnData = nullptr;
 
 public:
-    CTest(int nParam) : m_nData(nParam) {
-        std::cout << "CTest(int)" << std::endl;
+    CTest(int nParam) {
+        m_pnData  = new int;
+        *m_pnData = nParam;
     }
 
-    CTest(const CTest& rhs) : m_nData(rhs.m_nData) {
-        std::cout << "CTest(const CTest &)" << std::endl;
+    ~CTest() {
+        // 문법적인 오류는 없지만 컴파일 해보게 되면 문제가 있음을 알 수 있다.
+        Release();
     }
 
-    // 읽기 전용인 상수형 메서드
-    int GetData() const {
-        return m_nData;
+    int GetData() {
+        if (m_pnData != NULL) return *m_pnData;
+        return 0;
     }
 
-    // 멤버 변수에 쓰기를 시도하는 메서드
-    void SetData(int nParam) {
-        m_nData = nParam;
+    void Release() {
+        if (m_pnData != NULL) delete m_pnData;
     }
 };
 
-void TestFunc(const CTest& param) {
-    std::cout << "TestFunc()" << std::endl;
-
-    // 피호출자 함수에서 매개변수 인스턴스의 값을 변경한다.
-    param.SetData(20);
-}
-
 //
 int main(int argc, char const *argv[]) {
-    std::cout << "*******Begin*******" << std::endl;
     CTest a(10);
-    TestFunc(a);
+    // 얕은 복사로 인해 같은 포인터를 가진 친구가 멤버 변수로 들어가게 된다. 이는 메모리를 해제하는 과정에서 문제가 발생한다.
+    CTest b(a);
 
-    // 함수 호출 후 a의 값을 출력한다.
-    std::cout << "a: " << a.GetData() << '\n';
-
-    std::cout << "*******End*******" << std::endl;
+    std::cout << a.GetData() << '\n';
+    std::cout << b.GetData() << std::endl;
 
     return 0;
 }
