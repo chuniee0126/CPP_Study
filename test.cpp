@@ -24,7 +24,7 @@ private:
 
 public:
     // 매개변수가 하나뿐인 생성자는 형변환이 가능하다.
-    CTestData(int nParam) : m_nData(nParam) {
+    explicit CTestData(int nParam) : m_nData(nParam) {
         std::cout << "CTestData(int)" << std::endl;
     }
 
