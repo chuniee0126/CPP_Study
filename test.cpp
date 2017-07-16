@@ -42,7 +42,7 @@ public:
     }
 };
 
-void TestFunc(CTest& param) {
+void TestFunc(const CTest& param) {
     std::cout << "TestFunc()" << std::endl;
 
     // 피호출자 함수에서 매개변수 인스턴스의 값을 변경한다.
