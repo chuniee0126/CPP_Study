@@ -18,39 +18,47 @@
 #include <cstdio>
 #include <iostream>
 
-class CMyData {
+class CTest {
 private:
     int m_nData = 0;
 
 public:
-    CMyData() {
-        std::cout << "CMyData()" << std::endl;
+    CTest(int nParam) : m_nData(nParam) {
+        std::cout << "CTest(int)" << std::endl;
     }
 
-    // 복사 생성자 선언 및 정의
-    CMyData(const CMyData& rhs) {  // : m_nData(rhs.m_nData)
-        this->m_nData = rhs.m_nData;
-        std::cout << "CMyData(const CMyData &)" << std::endl;
+    CTest(const CTest& rhs) : m_nData(rhs.m_nData) {
+        std::cout << "CTest(const CTest &)" << std::endl;
     }
 
-    int GetData(void) const {
+    // 읽기 전용인 상수형 메서드
+    int GetData() const {
         return m_nData;
     }
 
+    // 멤버 변수에 쓰기를 시도하는 메서드
     void SetData(int nParam) {
         m_nData = nParam;
     }
 };
 
+void TestFunc(CTest param) {
+    std::cout << "TestFunc()" << std::endl;
+
+    // 피호출자 함수에서 매개변수 인스턴스의 값을 변경한다.
+    param.SetData(20);
+}
+
+//
 int main(int argc, char const *argv[]) {
-    CMyData a;
+    std::cout << "*******Begin*******" << std::endl;
+    CTest a(10);
+    TestFunc(a);
 
-    // 디폴트 생성자가 호출되는 경우
-    a.SetData(10);
+    // 함수 호출 후 a의 값을 출력한다.
+    std::cout << "a: " << a.GetData() << '\n';
 
-    // 복사 생성자가 호출되는 경우
-    CMyData b(a);
-    std::cout << b.GetData() << std::endl;
+    std::cout << "*******End*******" << std::endl;
 
     return 0;
 }
