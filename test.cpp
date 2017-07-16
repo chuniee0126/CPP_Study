@@ -28,7 +28,13 @@ public:
         std::cout << "CTestData(int)" << std::endl;
     }
 
-    CTestData(const CTestData& rhs) : m_nData(rhs.GetData()) {}
+    CTestData(const CTestData& rhs) : m_nData(rhs.GetData()) {
+        std::cout << "CTestData(const CTestData &)" << '\n';
+    }
+
+    ~CTestData() {
+        std::cout << "~CTestData()" << '\n';
+    }
 
     int GetData() const {
         return m_nData;
@@ -41,13 +47,16 @@ public:
 
 // 사용자 코드
 // 매개변수가 클래스 형식이며 변환 생성이 가능하다.
-void TestFunc(CTestData param) {
+void TestFunc(const CTestData& param) {
     std::cout << "TestFunc():" << param.GetData() << std::endl;
 }
 
 int main(int argc, char const *argv[]) {
-    // int 자료형에서 CTestData 형식으로 변환될 수 있다.
+    std::cout << "*******Begin*******" << '\n';
+
     TestFunc(5);
+
+    std::cout << "*******End*******" << '\n';
 
     return 0;
 }
