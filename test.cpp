@@ -18,36 +18,43 @@
 #include <cstdio>
 #include <iostream>
 
-class CMyData {
+class CTest {
 private:
     int m_nData;
 
+    // 정적 멤버 변수 선언 (정의는 아니다!)
+    static int m_nCount;
+
 public:
-    CMyData() : m_nData(0) {};
+    CTest(int nParam) : m_nData(nParam) {
+        m_nCount++;
+    }
 
-    int GetData(void) {
+    int  GetData() {
         return m_nData;
-    }
+    };
+    void ResetCount() {
+        m_nCount = 0;
+    };
 
-    void SetData(int dParam) {
-        m_nData = dParam;
+    // 정적 메서드 선언 및 정의
+    static int GetCount() {
+        return m_nCount;
     }
-
-    // 매개변수가 double 자료형인 경우로 다중 정의했다.
-    void SetData(double dParam) = delete;
 };
 
-int      main(int argc, char const *argv[]) {
-    CMyData a;
+// CTest 클래스의 정적 멤버 변수 정의
+int CTest::m_nCount = 0;
 
-    // CMyData::SetData(int) 메서드가 호출된다.
-    a.SetData(10);
-    std::cout << a.GetData() << std::endl;
+int main(int argc, char const *argv[]) {
+    CTest a(5), b(10);
 
-    CMyData b;
+    // 정적 멤버에 접근
+    std::cout << a.GetCount() << std::endl;
+    b.ResetCount();
 
-    b.SetData(5.5);
-    std::cout << b.GetData() << std::endl;
+    // 정적 멤버에 접금, 인스턴스 없이도 접근 가능!
+    std::cout << CTest::GetCount() << '\n';
 
     return 0;
 }
