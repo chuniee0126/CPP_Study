@@ -39,6 +39,13 @@ public:
         Release();
     }
 
+    CTest& operator=(const CTest& rhs) {
+        *m_pnData = *rhs.m_pnData;
+
+        // 객체 자신에 대한 참조를 반환한다.
+        return *this;
+    }
+
     int GetData() {
         if (m_pnData != NULL) return *m_pnData;
         return 0;
