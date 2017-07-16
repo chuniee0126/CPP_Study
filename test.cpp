@@ -18,52 +18,36 @@
 #include <cstdio>
 #include <iostream>
 
-class CTest {
+class CTestData {
 private:
-    // 포인터 멤버 데이터
-    int *m_pnData = nullptr;
+    int m_nData = 0;
 
 public:
-    CTest(int nParam) {
-        m_pnData  = new int;
-        *m_pnData = nParam;
+    // 매개변수가 하나뿐인 생성자는 형변환이 가능하다.
+    CTestData(int nParam) : m_nData(nParam) {
+        std::cout << "CTestData(int)" << std::endl;
     }
 
-    CTest(const CTest& rhs) {
-        std::cout << "CTest(const CTest &)" << std::endl;
-        m_pnData  = new int;
-        *m_pnData = *rhs.m_pnData;
+    CTestData(const CTestData& rhs) : m_nData(rhs.GetData()) {}
+
+    int GetData() const {
+        return m_nData;
     }
 
-    ~CTest() {
-        Release();
-    }
-
-    CTest& operator=(const CTest& rhs) {
-        *m_pnData = *rhs.m_pnData;
-
-        // 객체 자신에 대한 참조를 반환한다.
-        return *this;
-    }
-
-    int GetData() {
-        if (m_pnData != NULL) return *m_pnData;
-        return 0;
-    }
-
-    void Release() {
-        if (m_pnData != NULL) delete m_pnData;
+    void SetData(int nParam) {
+        m_nData = nParam;
     }
 };
 
-//
-int main(int argc, char const *argv[]) {
-    CTest a(10);
-    CTest b(20);
+// 사용자 코드
+// 매개변수가 클래스 형식이며 변환 생성이 가능하다.
+void TestFunc(CTestData param) {
+    std::cout << "TestFunc():" << param.GetData() << std::endl;
+}
 
-    // 단순 대입을 시도하면 모든 멤버의 값을 그대로 복사한다. (얕은 복사)
-    a = b;
-    std::cout << a.GetData() << std::endl;
+int main(int argc, char const *argv[]) {
+    // int 자료형에서 CTestData 형식으로 변환될 수 있다.
+    TestFunc(5);
 
     return 0;
 }
