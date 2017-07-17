@@ -18,17 +18,17 @@
 #include <iostream>
 #include "MyString.h"
 
-void TestFunc(const CMyString& strParam) {
-    std::cout << strParam << '\n';
+CMyString TestFunc(void) {
+    CMyString strTest("TestFunc() return ");
+
+    std::cout << strTest << '\n';
+
+    return std::move(strTest);
 }
 
 int main(int argc, char const *argv[]) {
-    CMyString strData;
-
-    strData.SetString("Hello");
-
-    ::TestFunc(strData);
-    ::TestFunc(CMyString("World"));
+    // 이름없는 임시객체가 만들어진다.
+    TestFunc();
 
     return 0;
 }
