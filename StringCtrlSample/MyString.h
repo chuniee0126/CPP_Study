@@ -36,11 +36,16 @@ public:
     CMyString(CMyString&& rhs);  // 이동 생성자
     ~CMyString();
 
-    CMyString & operator=(const CMyString& rhs);
+    CMyString& operator=(const CMyString& rhs);
+    CMyString  operator+(const CMyString& rhs);
+    CMyString& operator+=(const CMyString& rhs);
     operator char *(void) const;
+
 
     int         SetString(const char *pszParam);
     const char* GetString() const;
+    int         GetLength() const;
+    int         Append(const char *pszParam);
     void        Release();
 };
 

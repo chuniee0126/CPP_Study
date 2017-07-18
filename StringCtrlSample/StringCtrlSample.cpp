@@ -18,17 +18,15 @@
 #include <iostream>
 #include "MyString.h"
 
-CMyString TestFunc(void) {
-    CMyString strTest("TestFunc() return ");
-
-    std::cout << strTest << '\n';
-
-    return std::move(strTest);
-}
-
 int main(int argc, char const *argv[]) {
-    // 이름없는 임시객체가 만들어진다.
-    TestFunc();
+    CMyString strLeft("Hello"), strRight("World"), strResult;
+
+    strResult = strLeft + strRight;
+    std::cout << strResult << '\n';
+
+    std::cout << strLeft << '\n';
+    strLeft += CMyString("World");
+    std::cout << strLeft << '\n';
 
     return 0;
 }

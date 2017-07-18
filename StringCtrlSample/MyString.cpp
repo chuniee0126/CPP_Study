@@ -48,6 +48,20 @@ CMyString& CMyString::operator=(const CMyString& rhs) {
     return *this;
 }
 
+CMyString CMyString::operator+(const CMyString& rhs) {
+    CMyString result;
+
+    result.SetString(this->GetString());
+    result.Append(rhs.GetString());
+    return std::move(result);
+}
+
+CMyString& CMyString::operator+=(const CMyString& rhs) {
+    this->Append(rhs.GetString());
+
+    return *this;
+}
+
 CMyString::operator char *(void) const {
     return m_pszData;
 }
@@ -67,6 +81,42 @@ int CMyString::SetString(const char *pszParam) {
 
 const char * CMyString::GetString() const {
     return m_pszData;
+}
+
+int CMyString::GetLength() const {
+    return m_nLength;
+}
+
+int CMyString::Append(const char *pszParam) {
+    // 매개변수 유효성 검사
+    if (pszParam == NULL) return 0;
+
+    int nLenParam = strlen(pszParam);
+
+    if (nLenParam == 0) return 0;
+
+    // 세트된 문자열이 없다면 새로 문자열을 할당한 것과 동일하게 처리함
+    if (m_pszData == NULL) {
+        SetString(pszParam);
+
+        return m_nLength;
+    }
+
+    // 현재 문자열의 길이 백업
+    int nLenCur = m_nLength;
+
+    // 두 문자열을 합쳐서 저장할 수 있는 메모리를 새로 할당함
+    char *pszResult = new char[nLenCur + nLenParam + 1];
+
+    // 문자열 조합
+    strcpy(pszResult,                            m_pszData);
+    strcpy(pszResult + (sizeof(char) * nLenCur), pszParam);
+
+    Release();
+    m_pszData = pszResult;
+    m_nLength = nLenCur + nLenParam;
+
+    return m_nLength;
 }
 
 void CMyString::Release() {
