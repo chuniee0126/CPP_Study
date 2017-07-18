@@ -20,55 +20,41 @@
 
 class CMyData {
 private:
-    int m_nData = 0;
+    int *m_pnData = nullptr;
 
 public:
-    // 변환 생성자
-    CMyData(int nParam) : m_nData(nParam) {
-        std::cout << "CMyData(int)" << '\n';
+    explicit CMyData(int nParam) {
+        m_pnData = new int (nParam);
     }
 
-    // 복사 생성자
-    CMyData(const CMyData& rhs) : m_nData(rhs.m_nData) {
-        std::cout << "CMyData(const CMyData &)" << '\n';
+    ~CMyData() {
+        delete m_pnData;
     }
 
-    // 이동 생성자
-    CMyData(const CMyData&& rhs) : m_nData(rhs.m_nData) {
-        std::cout << "CMyData(const CMyData &&)" << '\n';
-    }
-
-    // 형변환
-    operator int() {
-        return m_nData;
-    }
-
-    // +
-    CMyData operator+(const CMyData& rhs) {
-        std::cout << "operator+" << '\n';
-        CMyData result(0);
-        result.m_nData = this->m_nData + rhs.m_nData;
-
-        return std::move(result);
-    }
-
+    // 단순 대입 연산자 다중 정의
     CMyData& operator=(const CMyData& rhs) {
-        std::cout << "operator=" << '\n';
-        m_nData = rhs.m_nData;
+        // r-value가 자신이면 대입을 수행하지 않는다.
+        if (this == &rhs) return *this;
+
+        // 본래 가리키던 메모리를 삭데하고
+        delete m_pnData;
+
+        // 새로 할당한 메모리에 값을 저장한다.
+        m_pnData = new int (*rhs.m_pnData);
 
         return *this;
+    }
+
+    explicit operator int(void) const {
+        return *m_pnData;
     }
 };
 
 int main(int argc, char const *argv[]) {
-    std::cout << "*********Begin**********" << '\n';
-    CMyData a(0), b(3), c(4);
+    CMyData a(0), b(5);
 
-    // b+c 연산을 실행하면 이름 없는 임시 객체가 만들어지며
-    // a에 대입하는 것은 이 임시 객체다.
-    a = b + c;
-    std::cout << a << '\n';
-    std::cout << "*********End**********" << '\n';
+    a = a;
+    std::cout << int(a) << '\n';
 
     return 0;
 }
