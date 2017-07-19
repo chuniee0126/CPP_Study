@@ -45,16 +45,30 @@ public:
         return *this;
     }
 
-    explicit operator int(void) const {
+    CMyData& operator+=(const CMyData& rhs) {
+        int *pnNewData = new int (*m_pnData);
+
+        // 누적할 값 처리
+        *pnNewData += *rhs.m_pnData;
+
+        // 기존 데이터 삭제
+        delete m_pnData;
+        m_pnData = pnNewData;
+
+        return *this;
+    }
+
+    operator int(void) const {
         return *m_pnData;
     }
 };
 
 int main(int argc, char const *argv[]) {
-    CMyData a(0), b(5);
+    CMyData a(0), b(5), c(10);
 
-    a = a;
-    std::cout << int(a) << '\n';
+    a += b;
+    a += c;
+    std::cout << a << '\n';
 
     return 0;
 }
