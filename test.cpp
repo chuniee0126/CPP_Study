@@ -18,83 +18,69 @@
 #include <cstdio>
 #include <iostream>
 
+// 제작자 - 초기 개발자
 class CMyData {
 private:
-    int *m_pnData = nullptr;
+
+    int m_nData = 0;
 
 public:
-    explicit CMyData(int nParam) {
-        std::cout << "CMyData(int)" << '\n';
-        m_pnData = new int (nParam);
+
+    CMyData() {
+        std::cout << "CMyData()" << '\n';
     }
 
-    CMyData(const CMyData& rhs) {
-        m_pnData = new int (*rhs.m_pnData);
+    virtual ~CMyData() {}
+
+    int GetData() {
+        return m_nData;
     }
 
-    ~CMyData() {
-        delete m_pnData;
+    void SetData(int nParam) {
+        m_nData = nParam;
     }
 
-    CMyData operator+(const CMyData& rhs) {
-        // 호출자 함수에서 이름 없는 임시 객체가 생성된다.
-        return std::move(CMyData(*m_pnData + *rhs.m_pnData));
-    }
+protected:
 
-    // 단순 대입 연산자 다중 정의
-    CMyData& operator=(const CMyData& rhs) {
-        std::cout << "operator=" << '\n';
-
-        // r-value가 자신이면 대입을 수행하지 않는다.
-        if (this == &rhs) return *this;
-
-        // 본래 가리키던 메모리를 삭데하고
-        delete m_pnData;
-
-        // 새로 할당한 메모리에 값을 저장한다.
-        m_pnData = new int (*rhs.m_pnData);
-
-        return *this;
-    }
-
-    CMyData& operator=(CMyData&& rhs) {
-        std::cout << "operator=(move)" << '\n';
-
-        // 얕은 복사를 수행하고 원본은  nullptr로 포기화한다.
-        m_pnData     = rhs.m_pnData;
-        rhs.m_pnData = nullptr;
-
-        return *this;
-    }
-
-    CMyData& operator+=(const CMyData& rhs) {
-        int *pnNewData = new int (*m_pnData);
-
-        // 누적할 값 처리
-        *pnNewData += *rhs.m_pnData;
-
-        // 기존 데이터 삭제
-        delete m_pnData;
-        m_pnData = pnNewData;
-
-        return *this;
-    }
-
-    operator int(void) const {
-        return *m_pnData;
+    void PrintData() {
+        // 파생 클래스만 접근 가능
+        std::cout << "CMyData::PrintData()" << '\n';
     }
 };
 
+// 제작자 - 후기 개발자
+class CMyDataEX : public CMyData {
+private:
+
+    /* data */
+
+public:
+
+    CMyDataEX() {
+        std::cout << "CMyDataEX()" << '\n';
+    }
+
+    virtual ~CMyDataEX() {}
+
+    void TestFunc() {
+        //  기본 형식 멤버에 접근
+        PrintData();
+        SetData(5);
+        std::cout << CMyData::GetData() << '\n';
+    }
+};
+
+
+// 사용자
 int main(int argc, char const *argv[]) {
-    CMyData a(0), b(3), c(4);
+    CMyDataEX data;
 
-    std::cout << "*****before*****" << '\n';
+    // 기본 클래스(CMyData) 멤버에 접근
+    data.SetData(10);
+    std::cout << data.GetData() << '\n';
 
-    a = b + c;
-    std::cout << "*****After*****" << '\n';
-    std::cout << a << '\n';
-    a = b;
-    std::cout << a << '\n';
+    // 파생클래스(CMyDataEX) 멤버에 접근
+    data.TestFunc();
 
     return 0;
 }
