@@ -26,9 +26,7 @@ private:
 
 public:
 
-    CMyData() {
-        std::cout << "CMyData()" << '\n';
-    }
+    CMyData() {}
 
     virtual ~CMyData() {}
 
@@ -56,9 +54,7 @@ private:
 
 public:
 
-    CMyDataEX() {
-        std::cout << "CMyDataEX()" << '\n';
-    }
+    CMyDataEX() {}
 
     virtual ~CMyDataEX() {}
 
@@ -68,19 +64,28 @@ public:
         SetData(5);
         std::cout << CMyData::GetData() << '\n';
     }
+
+    // Override
+    void SetData(int nParam) {
+        if (nParam < 0) CMyData::SetData(0);
+
+        if (nParam > 10) CMyData::SetData(10);
+    }
 };
 
 
 // 사용자
 int main(int argc, char const *argv[]) {
-    CMyDataEX data;
+    // 구형에는 값을 보정하는 기능이 없다.
+    CMyData a;
 
-    // 기본 클래스(CMyData) 멤버에 접근
-    data.SetData(10);
-    std::cout << data.GetData() << '\n';
+    a.SetData(-10);
+    std::cout << a.GetData() << '\n';
 
-    // 파생클래스(CMyDataEX) 멤버에 접근
-    data.TestFunc();
+    // 신형에는 값을 보정하는 기능이 있다.
+    CMyDataEX b;
+    b.SetData(15);
+    std::cout << b.GetData() << '\n';
 
     return 0;
 }
