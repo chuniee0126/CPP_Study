@@ -1,4 +1,3 @@
-#include <string.h>
 #include "MyStringEx.h"
 
 int CMyStringEx::Find(const char *pszParam) {
@@ -9,4 +8,14 @@ int CMyStringEx::Find(const char *pszParam) {
     int result = (str - GetString()) / sizeof(char);
 
     return result;
+}
+
+void CMyStringEx::SetString(const char *pszParam){
+
+    const char * str = strstr(pszParam, "멍멍이아들");
+
+    if (str != NULL) CMyString::SetString("착한 사람");
+    else CMyString::SetString(pszParam);
+
+    return;
 }

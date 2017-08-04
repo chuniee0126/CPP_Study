@@ -22,11 +22,13 @@
 int main(int argc, char const *argv[]) {
     CMyStringEx strTest;
 
-    strTest.SetString("I am a boy.");
+    // 문자열이 필터링되어 대체되는 경우
+    strTest.SetString("멍멍이아들");
     std::cout << strTest << '\n';
 
-    int nIndex = strTest.Find("am");
-    std::cout << "Index: " << nIndex << '\n';
+    // 필터링되지 않는 경우
+    strTest.SetString("Hello");
+    std::cout << strTest << '\n';
 
     return 0;
 }

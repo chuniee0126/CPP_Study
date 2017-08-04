@@ -1,3 +1,4 @@
+#include <string.h>
 #include "MyString.h"
 
 class CMyStringEx : public CMyString {
@@ -12,4 +13,7 @@ public:
     virtual ~CMyStringEx() {}
 
     int Find(const char *pszParam);
+
+    // Override
+    void SetString(const char *pszParam);
 };
