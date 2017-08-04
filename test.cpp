@@ -77,15 +77,14 @@ public:
 // 사용자
 int main(int argc, char const *argv[]) {
     // 구형에는 값을 보정하는 기능이 없다.
-    CMyData a;
+    CMyDataEX a;
+    // a; 실제 형식
+    // rData; 참조 형식
+    CMyData & rData = a;
 
-    a.SetData(-10);
-    std::cout << a.GetData() << '\n';
-
-    // 신형에는 값을 보정하는 기능이 있다.
-    CMyDataEX b;
-    b.SetData(15);
-    std::cout << b.GetData() << '\n';
+    // 참조 형식인 CMyData의 SetData()가 호출된다. !!!
+    rData.SetData(15);
+    std::cout << rData.GetData() << '\n';
 
     return 0;
 }
