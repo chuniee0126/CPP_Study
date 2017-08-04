@@ -17,16 +17,16 @@
  */
 #include <iostream>
 #include "MyString.h"
+#include "MyStringEx.h"
 
 int main(int argc, char const *argv[]) {
-    CMyString strLeft("Hello"), strRight("World"), strResult;
+    CMyStringEx strTest;
 
-    strResult = strLeft + strRight;
-    std::cout << strResult << '\n';
+    strTest.SetString("I am a boy.");
+    std::cout << strTest << '\n';
 
-    std::cout << strLeft << '\n';
-    strLeft += CMyString("World");
-    std::cout << strLeft << '\n';
+    int nIndex = strTest.Find("am");
+    std::cout << "Index: " << nIndex << '\n';
 
     return 0;
 }
