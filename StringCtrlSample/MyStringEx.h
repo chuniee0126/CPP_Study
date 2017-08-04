@@ -10,10 +10,11 @@ public:
 
     CMyStringEx() {}
 
+    CMyStringEx(const char *nParam) {
+        SetString(nParam);
+    }
+
     virtual ~CMyStringEx() {}
 
     int Find(const char *pszParam);
-
-    // Override
-    void SetString(const char *pszParam);
 };
