@@ -18,73 +18,50 @@
 #include <cstdio>
 #include <iostream>
 
-// 제작자 - 초기 개발자
 class CMyData {
-private:
-
-    int m_nData = 0;
-
-public:
-
-    CMyData() {}
-
-    virtual ~CMyData() {}
-
-    int GetData() {
-        return m_nData;
-    }
-
-    void SetData(int nParam) {
-        m_nData = nParam;
-    }
-
-protected:
-
-    void PrintData() {
-        // 파생 클래스만 접근 가능
-        std::cout << "CMyData::PrintData()" << '\n';
-    }
-};
-
-// 제작자 - 후기 개발자
-class CMyDataEX : public CMyData {
 private:
 
     /* data */
 
 public:
 
-    CMyDataEX() {}
-
-    virtual ~CMyDataEX() {}
-
-    void TestFunc() {
-        //  기본 형식 멤버에 접근
-        PrintData();
-        SetData(5);
-        std::cout << CMyData::GetData() << '\n';
+    CMyData() {
+        std::cout << "CMyData()" << '\n';
     }
 
-    // Override
-    void SetData(int nParam) {
-        if (nParam < 0) CMyData::SetData(0);
-
-        if (nParam > 10) CMyData::SetData(10);
+    CMyData(int nParam) {
+        std::cout << "CMyData(int)" << '\n';
     }
+
+    CMyData(double dParam) {
+        std::cout << "CMyData(double)" << '\n';
+    }
+
+    ~CMyData() {std::cout << "CmyData::~CMyData()" << '\n';}
+};
+
+class CMyDataEx : public CMyData {
+private:
+
+    /* data */
+
+public:
+
+    using CMyData::CMyData;
+    ~CMyDataEx() {std::cout << "CmyDataEX::~CMyDataEx()" << '\n';}
 };
 
 
-// 사용자
 int main(int argc, char const *argv[]) {
-    // 구형에는 값을 보정하는 기능이 없다.
-    CMyDataEX a;
-    // a; 실제 형식
-    // rData; 참조 형식
-    CMyData & rData = a;
+    CMyDataEx a;
 
-    // 참조 형식인 CMyData의 SetData()가 호출된다. !!!
-    rData.SetData(15);
-    std::cout << rData.GetData() << '\n';
+    std::cout << "*****************" << '\n';
+
+    CMyDataEx b(2);
+
+    std::cout << "*****************" << '\n'; \
+
+    CMyDataEx c(3.3);
 
     return 0;
 }
