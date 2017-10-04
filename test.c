@@ -34,7 +34,7 @@ void PrintData(USERDATA *pUSER)
 }
 
 // 사용자의 코드
-void main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[]) {
 	//test4
 	//test2
 	//test2
