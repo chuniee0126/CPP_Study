@@ -20,6 +20,7 @@
 // 제작자의 코드
 typedef struct USERDATA
 {
+	//tes3
 	//test2
 	int nAge;
 	char szName[32];
