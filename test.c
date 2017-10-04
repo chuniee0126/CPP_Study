@@ -34,13 +34,8 @@ void PrintData(USERDATA *pUSER)
 
 // 사용자의 코드
 int main(int argc, char const *argv[]) {
-<<<<<<< HEAD
 	//test2
 	//test2
-=======
-	//test
-	//test
->>>>>>> 36c9181beb21064e0afc8431a73ed0891d6c18a8
 	USERDATA user = {20, "철수", PrintData};
 	// printf("%d, %s\n", User.nAge, User.szName ); // 만약 PrintData를 선언하지 않았었다면 사용자는 이 줄을 추가했어야 했을 것이다.
 	//PrintData(&user);
